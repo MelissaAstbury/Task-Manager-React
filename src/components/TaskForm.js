@@ -10,7 +10,6 @@ const TaskForm = () => {
 
   const handleChange = (e) => {
     setTitle(e.target.value);
-    console.log(title);
   };
 
   const handleSubmit = (e) => {
