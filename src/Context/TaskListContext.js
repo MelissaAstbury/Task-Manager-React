@@ -10,6 +10,8 @@ const TaskListContextProvider = (props) => {
     { title: "Paint my nails", id: 3 },
   ]);
 
+  const [editItem, setEditItem] = useState(null);
+
   const addTask = (title) => {
     setTasks([...tasks, { title: title, id: v4() }]);
   };
@@ -22,8 +24,31 @@ const TaskListContextProvider = (props) => {
     setTasks([]);
   };
 
+  const findItem = (id) => {
+    const item = tasks.find((task) => task.id === id);
+
+    setEditItem(item);
+  };
+
+  const editTask = (title, id) => {
+    const newTasks = tasks.map((task) =>
+      task.id === id ? { title, id } : task
+    );
+    return setTasks(newTasks);
+  };
+
   return (
-    <TaskListContext.Provider value={{ tasks, addTask, removeTask, clearList }}>
+    <TaskListContext.Provider
+      value={{
+        tasks,
+        addTask,
+        removeTask,
+        clearList,
+        findItem,
+        editTask,
+        editItem,
+      }}
+    >
       {props.children}
     </TaskListContext.Provider>
   );
